@@ -1,50 +1,30 @@
 import 'dart:async';
-
+import 'package:code_challenge/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class AnimationWidgetScreen extends StatefulWidget {
+  const AnimationWidgetScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<AnimationWidgetScreen> createState() => _AnimationWidgetScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  late Timer _everySecond;
+class _AnimationWidgetScreenState extends State<AnimationWidgetScreen> {
+
+  //MARK:- Properties
+  ///
+  late Timer _timer;
+  ///
   bool _changeHeight = false;
+  ///
   bool _timerStarted = false;
-
-  void _startTimer() {
-    if (_timerStarted == false) {
-      _timerStarted = true;
-      _everySecond = Timer.periodic(const Duration(seconds: 1), (Timer t) {
-        setState(() {
-          _changeHeight = !_changeHeight;
-        });
-      });
-    }
-  }
-
-  void _stopTimer() {
-    if (_timerStarted) {
-      _timerStarted = false;
-      _everySecond.cancel();
-     // setState(() {});
-    }
-  }
 
   @override
   void initState() {
     super.initState();
     _startTimer();
-  }
-
-  @override
-  void dispose() {
-    _stopTimer();
-    super.dispose();
   }
 
   @override
@@ -60,8 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              "Good luck",
+             Text(
+              Constants.goodLuck,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
@@ -78,4 +58,29 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  void _startTimer() {
+    if (_timerStarted == false) {
+      _timerStarted = true;
+      _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+        setState(() {
+          _changeHeight = !_changeHeight;
+        });
+      });
+    }
+  }
+
+  void _stopTimer() {
+    if (_timerStarted) {
+      _timerStarted = false;
+      _timer.cancel();
+    }
+  }
+
+  @override
+  void dispose() {
+    _stopTimer();
+    super.dispose();
+  }
+
 }

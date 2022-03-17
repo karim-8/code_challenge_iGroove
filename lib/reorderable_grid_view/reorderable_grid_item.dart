@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class ReorderableGridItem extends StatefulWidget {
   final Widget? child;
-  final GlobalObjectKey<FormState> myKey;
+  final GlobalKey myKey;
   final double widthFlex;
   final bool allowDrag;
   int? orderNumber;

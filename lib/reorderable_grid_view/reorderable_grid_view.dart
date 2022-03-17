@@ -52,7 +52,7 @@ class _ReorderableGridViewState extends State<ReorderableGridView>
 
   double _layoutTopMargin = 0;
 
-  late BoxConstraints _boxConstraints;
+  BoxConstraints _boxConstraints = BoxConstraints();
 
   GlobalKey _layoutKey = GlobalKey();
 
@@ -125,12 +125,13 @@ class _ReorderableGridViewState extends State<ReorderableGridView>
             child: Container(
               height: maxScrollExtend,
               width: _screenWidth,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                fit: StackFit.expand,
-                key: UniqueKey(),
-                children: dragItems.map((e) => e).toList(),
-              ),
+              child:  Stack(
+                  alignment: Alignment.topCenter,
+                  //fit: Stackfit.passthrough,
+                  fit: StackFit.passthrough,
+                  key: UniqueKey(),
+                  children: dragItems.map((e) => e).toList(),
+                ),
             ),
           ),
         );
@@ -575,7 +576,7 @@ class _DragItemState extends State<DragItem> {
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onLongPressStart: (details) {
-                  var element = widget.child!;
+                  var element = widget.child ?? ReorderableGridItem(myKey:GlobalKey(),);
                   if (element.allowDrag == true) {
                     setState(() {
                       isDragging = true;

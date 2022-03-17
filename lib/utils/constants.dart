@@ -12,4 +12,9 @@ class Constants {
       "\n\n4. Refactoring the code can be done if wanted but the "
       "ReorderableGridView cannot be replaced."
       "\n\nInfo: You get to the second view via the button on the bottom.";
-}
+
+  static var info = "Info: With a longPress on the boxes you can reorder them to "
+      "different positions.";
+
+  static var goodLuck = "Good luck";
+ }

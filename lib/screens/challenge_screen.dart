@@ -1,3 +1,4 @@
+import 'package:code_challenge/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'animation_widget_screen.dart';
 import '../reorderable_grid_view/reorderable_grid_item.dart';
@@ -11,16 +12,12 @@ class ChallengeScreen extends StatefulWidget {
 }
 
 class _ChallengeScreenState extends State<ChallengeScreen> {
+  //MARK:- Properties
+
+  ///
   ScrollController? _scrollController;
+  ///
   List<int?>? savedOrder;
-  void _initScrollController() {
-    _scrollController = ScrollController()
-      ..addListener(() {
-        if (widget.scrollUpdateTrigger != null) {
-          widget.scrollUpdateTrigger!(_scrollController);
-        }
-      });
-  }
 
   @override
   void initState() {
@@ -39,7 +36,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
       children: [
         ReorderableGridItem(
           widthFlex: 1,
-          myKey: GlobalObjectKey<FormState>(1),
+          myKey: GlobalKey(),
           child: Container(
             margin: const EdgeInsets.all(20),
             decoration: const BoxDecoration(color: Colors.red),
@@ -79,13 +76,13 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
         ),
         ReorderableGridItem(
           widthFlex: 1,
-          myKey: GlobalObjectKey<FormState>(2),
-          child: HomeScreen(),
+          myKey: GlobalKey(),
+          child: AnimationWidgetScreen(),
           allowDrag: true,
         ),
         ReorderableGridItem(
           widthFlex: 1,
-          myKey: GlobalObjectKey<FormState>(3),
+          myKey: GlobalKey(),
           child: Container(
             height: 75,
             margin: const EdgeInsets.all(20),
@@ -95,13 +92,12 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
         ),
         ReorderableGridItem(
           widthFlex: 1,
-          myKey: GlobalObjectKey<FormState>(4),
+          myKey: GlobalKey(),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: const Center(
+            child:  Center(
               child: Text(
-                "Info: With a longPress on the boxes you can reorder them to "
-                    "different positions.",
+                Constants.info,
                 style: TextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, height: 18 / 14),
               ),
@@ -111,5 +107,14 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
         ),
       ],
     );
+  }
+
+  void _initScrollController() {
+    _scrollController = ScrollController()
+      ..addListener(() {
+        if (widget.scrollUpdateTrigger != null) {
+          widget.scrollUpdateTrigger!(_scrollController);
+        }
+      });
   }
 }
